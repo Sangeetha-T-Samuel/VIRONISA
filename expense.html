@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Expenses</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4CAF50; /* Match the main section */
+            padding: 10px 15px; /* Reduced padding */
+            width: 100%;
+            position: absolute;
+            top: 0;
+        }
+        .navbar ul {
+            list-style-type: none;
+            display: flex;
+            margin: 0;
+        }
+        .navbar ul li {
+            margin-right: 20px;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .navbar ul li a.active {
+            background-color: #99cfcf;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .logout-btn {
+            width: 80px; /* Fixed width */
+            height: 30px; /* Fixed height */
+            background-color: red; /* Changed to red */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px; /* Smaller font size */
+            margin-left: auto; /* Aligns it to the right */
+            padding: 3px; /* Padding for button content */
+            box-sizing: border-box; /* Include padding in width/height */
+        }
+        .logout-btn:hover {
+            background-color: darkred; /* Darker red on hover */
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            margin-top: 80px; /* Margin to avoid overlap with navbar */
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="date"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50; /* Main button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="accounts.html">Accounts</a></li>
+            <li><a href="income.html">Incomes</a></li>
+            <li><a href="expenses.html" class="active">Expenses</a></li>
+            <li><a href="budget.html">Budget</a></li>
+        </ul>
+        <button class="logout-btn">Logout</button>
+    </nav>
+
+    <div class="container">
+        <h1>Add Expenses</h1>
+        <form id="expenseForm">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="amount">Amount Spent</label>
+            <input type="number" id="amount" name="amount" min="0" required>
+
+            <label for="category">Select Category</label>
+            <select id="category" name="category" required>
+                <option value="utility">Utility</option>
+                <option value="convenience">Convenience</option>
+                <option value="personal">Personal</option>
+                <option value="bank loan">Bank Loan</option>
+            </select>
+
+            <button type="button" onclick="addExpense()">Add Expense</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2>Expense Log</h2>
+        <table id="expenseTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Expense entries will be added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let expenses = [];
+
+        function addExpense() {
+            const date = document.getElementById('date').value;
+            const amount = document.getElementById('amount').value;
+            const category = document.getElementById('category').value;
+
+            if (date && amount && category) {
+                const expenseEntry = { date, amount, category };
+                expenses.push(expenseEntry);
+                displayExpenses();
+                alert(`Expense added:\nDate: ${date}\nCategory: ${category}\nAmount: $${amount}`);
+            } else {
+                alert("Please fill out all fields.");
+            }
+        }
+
+        function displayExpenses() {
+            const tableBody = document.querySelector("#expenseTable tbody");
+            tableBody.innerHTML = ""; // Clear previous entries
+            expenses.forEach(expense => {
+                const row = `<tr>
+                    <td>${expense.date}</td>
+                    <td>${expense.category}</td>
+                    <td>$${expense.amount}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+    </script>
+
+</body>
+</html>

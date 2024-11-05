@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Finance Management</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        .login-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .login-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <img src="logo.png" alt="Finance Management Logo" class="logo">
+            <h1>Finance Management</h1>
+        </div>
+        <div class="right-panel">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="username">Username (Email)</label>
+                <input type="email" id="username" name="username" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <p>Don't have an account? <a href="signup.html" class="signup-link">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs (place before any Firebase initialization) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js"></script>
+
+    <!-- Firebase Initialization Script -->
+    <script>
+        // Firebase configuration object (replace with your Firebase config)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase app and authentication
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+    </script>
+
+    <!-- Login Script (place at the end of body) -->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Retrieve values from form fields
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Sign in using Firebase Authentication
+            auth.signInWithEmailAndPassword(username, password)
+                .then((userCredential) => {
+                    alert("Login successful!");
+                    window.location.href = "homepage.html"; // Redirect on success
+                })
+                .catch((error) => {
+                    alert("Error: " + error.message);
+                });
+        });
+    </script>
+</body>
+</html>
