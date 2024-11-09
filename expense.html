@@ -7,191 +7,377 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f0f0f0;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #4CAF50; /* Match the main section */
-            padding: 10px 15px; /* Reduced padding */
-            width: 100%;
-            position: absolute;
-            top: 0;
-        }
-        .navbar ul {
-            list-style-type: none;
-            display: flex;
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+    
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+        }
+    
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+    
         .navbar ul li {
-            margin-right: 20px;
+            display: inline;
+            margin: 0 15px;
         }
+
         .navbar ul li a {
             color: white;
             text-decoration: none;
             font-size: 18px;
         }
+    
         .navbar ul li a.active {
-            background-color: #99cfcf;
+            font-weight: bold;
+        }
+    
+        .logout-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+        }
+    
+        .logout-btn:hover {
+            background-color: #e53935;
+        }
+    
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            gap: 30px;
+        }
+    
+        .form-section {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+    
+        .form-section h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+    
+        .form-group input,
+        .form-group select {
+            width: 100%;
             padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
             border-radius: 5px;
         }
-        .logout-btn {
-            width: 80px; /* Fixed width */
-            height: 30px; /* Fixed height */
-            background-color: red; /* Changed to red */
+    
+        .form-group button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 12px; /* Smaller font size */
-            margin-left: auto; /* Aligns it to the right */
-            padding: 3px; /* Padding for button content */
-            box-sizing: border-box; /* Include padding in width/height */
         }
-        .logout-btn:hover {
-            background-color: darkred; /* Darker red on hover */
+    
+        .form-group button:hover {
+            background-color: #45a049;
         }
-        .container {
-            background-color: white;
+    
+        .form-group .add-btn {
+            margin-right: 10px;
+        }
+    
+        .form-group .reset-btn {
+            background-color: #f44336;
+        }
+    
+        .form-group .reset-btn:hover {
+            background-color: #e53935;
+        }
+    
+        .expense-log {
+            flex: 1;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-            margin-top: 80px; /* Margin to avoid overlap with navbar */
+            border-left: 2px solid #ccc;
+            box-sizing: border-box;
+            max-width: 500px;
         }
-        h1, h2 {
-            text-align: center;
+    
+        .log-entry {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    
+        .log-entry p {
+            margin: 5px 0;
+        }
+    
+        .log-entry p strong {
             color: #333;
         }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-        }
-        input[type="date"], input[type="number"], select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50; /* Main button color */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
-        button:hover {
-            opacity: 0.9;
-        }
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
+    
+        .expense-log h2 {
             text-align: center;
+            margin-bottom: 20px;
         }
-        th {
-            background-color: #f4f4f4;
+    
+        /* Add additional styles for totals section */
+        .totals-section {
+            margin-top: 20px;
+        }
+
+        .totals-section p {
+            font-size: 18px;
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-
-    <nav class="navbar">
-        <ul>
-            <li><a href="homepage.html">Home</a></li>
-            <li><a href="accounts.html">Accounts</a></li>
-            <li><a href="income.html">Incomes</a></li>
-            <li><a href="expenses.html" class="active">Expenses</a></li>
-            <li><a href="budget.html">Budget</a></li>
-        </ul>
-        <button class="logout-btn">Logout</button>
-    </nav>
-
-    <div class="container">
-        <h1>Add Expenses</h1>
-        <form id="expenseForm">
-            <label for="date">Date</label>
-            <input type="date" id="date" name="date" required>
-
-            <label for="amount">Amount Spent</label>
-            <input type="number" id="amount" name="amount" min="0" required>
-
-            <label for="category">Select Category</label>
-            <select id="category" name="category" required>
-                <option value="utility">Utility</option>
-                <option value="convenience">Convenience</option>
-                <option value="personal">Personal</option>
-                <option value="bank loan">Bank Loan</option>
-            </select>
-
-            <button type="button" onclick="addExpense()">Add Expense</button>
-        </form>
-    </div>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="account.html">Accounts</a></li>
+                <li><a href="income.html">Incomes</a></li>
+                <li><a href="expense.html" class="active">Expenses</a></li>
+                <li><a href="budget.html">Budget</a></li>
+            </ul>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </nav>
+    </header>
 
     <div class="container">
-        <h2>Expense Log</h2>
-        <table id="expenseTable">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Category</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Expense entries will be added here -->
-            </tbody>
-        </table>
+        <!-- Form Section -->
+        <section class="form-section">
+            <h1>Expenses</h1>
+            <form id="expenseForm">
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" onchange="enableFields()">
+                </div>
+
+                <div class="form-group">
+                    <label for="account">Account</label>
+                    <select id="account" name="account" onchange="enableFields()">
+                        <option value="" disabled selected>--select--</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="utility">Utility</option>
+                        <option value="convenience">Convenience</option>
+                        <option value="personal">Personal</option>
+                        <option value="loan">Loan</option>
+                    </select>
+                    <label for="new-category">New Category</label>
+                    <input type="text" id="new-category" name="new-category" placeholder="Add a new category">
+                    <button type="button" class="add-btn" onclick="addNewCategory()">Add</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" name="amount" placeholder="Enter amount">
+                </div>
+
+                <div class="form-group btn-group">
+                    <button type="button" class="add-btn" onclick="addExpense()">Add</button>
+                    <button type="reset" class="reset-btn">Reset</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Expense Log Section -->
+        <section class="expense-log">
+            <h2>Expense Log</h2>
+            <div id="logContainer">
+                <!-- Expense entries will be displayed here -->
+            </div>
+        </section>
     </div>
+
+    <!-- Totals Section -->
+    <section class="totals-section">
+        <p><strong>Daily Total:</strong> <span id="dailyTotal">0</span></p>
+        <p><strong>Monthly Total:</strong> <span id="monthlyTotal">0</span></p>
+        <div id="categoryTotals">
+            <!-- Category totals will be displayed here -->
+        </div>
+    </section>
+
+    <!-- Firebase Configuration using CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-database-compat.js"></script>
 
     <script>
-        let expenses = [];
+        // Firebase initialization
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6OguzJC5Zr5iuN_Ii0MckURFTuobahTo",
+            authDomain: "vironisa-4beb8.firebaseapp.com",
+            databaseURL: "https://vironisa-4beb8-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "vironisa-4beb8",
+            storageBucket: "vironisa-4beb8.firebasestorage.app",
+            messagingSenderId: "352994860732",
+            appId: "1:352994860732:web:8cc324198308f2e8d93ab9",
+            measurementId: "G-VHTKSQQSVG"
+        };
+        firebase.initializeApp(firebaseConfig);
 
-        function addExpense() {
+        const auth = firebase.auth();
+        const db = firebase.database();
+
+        let dailyTotal = 0;
+        let monthlyTotal = 0;
+        let categoryTotals = {};
+
+        // Fetch available accounts for the current user
+        function loadAccounts() {
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    const accountsRef = db.ref('accounts/' + user.uid);  // Reference to user's accounts
+                    const accountSelect = document.getElementById('account');
+                    accountSelect.innerHTML = '<option value="" disabled selected>--select--</option>';
+
+                    accountsRef.once('value')
+                        .then(snapshot => {
+                            snapshot.forEach(accountSnapshot => {
+                                const account = accountSnapshot.val();
+                                const option = document.createElement('option');
+                                option.value = account.name;
+                                option.textContent = account.name;
+                                accountSelect.appendChild(option);
+                            });
+                        });
+                }
+            });
+        }
+
+        // Enable fields once date and account are chosen
+        function enableFields() {
             const date = document.getElementById('date').value;
+            const account = document.getElementById('account').value;
             const amount = document.getElementById('amount').value;
             const category = document.getElementById('category').value;
 
-            if (date && amount && category) {
-                const expenseEntry = { date, amount, category };
-                expenses.push(expenseEntry);
-                displayExpenses();
-                alert(`Expense added:\nDate: ${date}\nCategory: ${category}\nAmount: $${amount}`);
+            const addButton = document.querySelector('.add-btn');
+            if (date && account && category && amount) {
+                addButton.disabled = false;
             } else {
-                alert("Please fill out all fields.");
+                addButton.disabled = true;
             }
         }
 
-        function displayExpenses() {
-            const tableBody = document.querySelector("#expenseTable tbody");
-            tableBody.innerHTML = ""; // Clear previous entries
-            expenses.forEach(expense => {
-                const row = `<tr>
-                    <td>${expense.date}</td>
-                    <td>${expense.category}</td>
-                    <td>$${expense.amount}</td>
-                </tr>`;
-                tableBody.innerHTML += row;
-            });
+        // Add new category
+        function addNewCategory() {
+            const newCategory = document.getElementById('new-category').value;
+            if (newCategory && !document.querySelector(`#category option[value="${newCategory}"]`)) {
+                const categorySelect = document.getElementById('category');
+                const newOption = document.createElement('option');
+                newOption.value = newCategory;
+                newOption.textContent = newCategory;
+                categorySelect.appendChild(newOption);
+                document.getElementById('new-category').value = ''; // Clear input
+            }
         }
-    </script>
 
+        // Add expense entry
+        function addExpense() {
+            const date = document.getElementById('date').value;
+            const account = document.getElementById('account').value;
+            const category = document.getElementById('category').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            // Store expense in Firebase
+            const expenseRef = db.ref('expenses/' + account);
+            const expenseId = expenseRef.push().key;
+
+            const expense = {
+                date: date,
+                category: category,
+                amount: amount
+            };
+
+            expenseRef.child(expenseId).set(expense);
+
+            // Update expense log in the UI
+            updateLog(date, account, category, amount);
+            updateTotals(date, category, amount);
+        }
+
+        // Update the expense log UI
+        function updateLog(date, account, category, amount) {
+            const logContainer = document.getElementById('logContainer');
+            const entry = document.createElement('div');
+            entry.classList.add('log-entry');
+            entry.innerHTML = `<p><strong>Date:</strong> ${date}</p>
+                              <p><strong>Account:</strong> ${account}</p>
+                              <p><strong>Category:</strong> ${category}</p>
+                              <p><strong>Amount:</strong> ${amount}</p>`;
+            logContainer.appendChild(entry);
+        }
+
+        // Update total expenses (daily, monthly, category)
+        function updateTotals(date, category, amount) {
+            const today = new Date().toISOString().split('T')[0];  // Format current date as YYYY-MM-DD
+            const expenseDate = date.split('T')[0]; // Ensure expense date is in YYYY-MM-DD format
+
+            // Update daily total if the expense date is today
+            if (expenseDate === today) {
+                dailyTotal += amount;
+                document.getElementById('dailyTotal').innerText = dailyTotal;
+            }
+
+            // Update monthly total
+            const currentMonth = new Date().toISOString().slice(0, 7);  // Format current month as YYYY-MM
+            const expenseMonth = date.slice(0, 7);  // Extract month from the expense date (YYYY-MM)
+            if (expenseMonth === currentMonth) {
+                monthlyTotal += amount;
+                document.getElementById('monthlyTotal').innerText = monthlyTotal;
+            }
+
+            // Update category totals
+            if (!categoryTotals[category]) {
+                categoryTotals[category] = 0;
+            }
+            categoryTotals[category] += amount;
+
+            // Display category totals
+            let categoryHtml = '';
+            for (const cat in categoryTotals) {
+                categoryHtml += `<p><strong>${cat}:</strong> ${categoryTotals[cat]}</p>`;
+            }
+            document.getElementById('categoryTotals').innerHTML = categoryHtml;
+        }
+
+        // Load accounts when the page is loaded
+        window.onload = loadAccounts;
+
+    </script>
 </body>
 </html>
